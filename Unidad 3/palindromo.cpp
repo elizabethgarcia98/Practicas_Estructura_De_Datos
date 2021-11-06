@@ -22,13 +22,22 @@ int main(){
 	textoIgnorando = texto;
 	textoIgnorando.erase(std::remove(textoIgnorando.begin(), textoIgnorando.end(), ' '), textoIgnorando.end()); //Ignorando espacios en blanco
 	textoIgnorando.erase(std::remove_if(textoIgnorando.begin(), textoIgnorando.end(), [](unsigned char c) { return std::ispunct(c); }), textoIgnorando.end()); //Ignorando signos de puntuacion
-	
+	textoIgnorando.erase(std::remove_if(textoIgnorando.begin(), textoIgnorando.end(), [](unsigned char c) { return std::isdigit(c); }), textoIgnorando.end()); // Ignorando numeros
+	transform(textoIgnorando.begin(), textoIgnorando.end(), textoIgnorando.begin(), [](unsigned char c){ return toupper(c); }); // convierto a mayusculas
+
+
+ for (int i = 0; i < textoIgnorando.length(); i++) {
+    // Y cambiar cada letra por su representación
+    // mayúscula
+    textoIgnorando[i] = toupper(textoIgnorando[i]);
+  }
+
 
 	cout << endl;
 	if(evaluarPalindomo(textoIgnorando)){
-		cout << "La palabra: '" << texto << "' es Palindromo!!" << endl;
+		cout << "La palabra ingresada es Palindromo!!" << endl;
 	}else{
-		cout << "La palabra: '" << texto << "' NO es Palindromo!!" << endl;
+		cout << "La palabra ingresada NO es Palindromo!!" << endl;
 	}
 	
 	cout << endl;
@@ -63,8 +72,12 @@ bool evaluarPalindomo(string palabraEvaluar){
 		palabraLetra += colaLetra.dequeue();
 	}
 		if(palabraPila == palabraLetra){
+			cout << "Palabra al derecho: " << palabraLetra << endl;
+			cout << "Palabra al reves: " << palabraPila << endl;
 		return true;
 	}else{
+			cout << "Palabra al derecho: " << palabraLetra << endl;
+			cout << "Palabra al reves: " << palabraPila << endl;
 		return false;
 	}
 }
